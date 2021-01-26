@@ -68,7 +68,6 @@ struct Person
 			return false;
 	}
 
-	// Not very scalable
 	bool SetAddress(const std::vector<std::string>& address)
 	{
 		if (ValidateName(address[0]))
