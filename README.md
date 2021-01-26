@@ -1,4 +1,4 @@
-# Challenge Solutio
+# Challenge Solution
 
 In this repo I will be submitting my solution to the coding challenge proposed of the 26th of January.
 
