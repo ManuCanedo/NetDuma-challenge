@@ -5,6 +5,8 @@
 #include <map>
 #include <iostream>
 
+#define VALID_CHARACTERS "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 struct Person
 {
 	std::string firstName{ "Unknown" };
@@ -73,12 +75,10 @@ struct Person
 			this->address["Street"] = address[0];
 		else
 			return false;
-
 		if (ValidateName(address[1]))
 			this->address["Town"] = address[1];
 		else
 			return false;
-
 		if (ValidateName(address[2]))
 			this->address["Country"] = address[2];
 		else
@@ -87,34 +87,43 @@ struct Person
 		return true;
 	}
 
+	static inline bool isChar(const char c)
+	{
+		return ((c >= 'a' && c <= 'z')
+			|| (c >= 'A' && c <= 'Z'));
+	}
+
+	static inline bool isDigit(const char c)
+	{
+		return (c >= '0' && c <= '9');
+	}
+
 	static bool ValidateName(const std::string& name)
 	{
-		if (false)
-		{
-			std::cout << "Text field - Format incorrect";
-			return false;
-		}
-		return true;
+		return name.find_first_not_of(VALID_CHARACTERS) == std::string::npos;
 	}
 
 	static bool ValidateEmail(const std::string& email)
 	{
-		if (false)
-		{
-			std::cout << "Email field - Format incorrect";
-			return false;
-		}
-		return true;
+		if (!isChar(email[0])) return 0;
+
+		int At = -1, Dot = -1;
+
+		for (int i = 0; i < email.length(); i++) 
+			if (email[i] == '@') 
+				At = i;
+			else if (email[i] == '.') 
+				Dot = i;
+
+		if (At == -1 || Dot == -1) return 0;
+		if (At > Dot) return 0;
+
+		return (Dot < (email.length() - 1));
 	}
 
 	static bool ValidateTelephone(const std::string& telephone)
 	{
-		if (false)
-		{
-			std::cout << "Telephone field - Format incorrect";
-			return false;
-		}
-		return true;
+		return telephone.length() > 7 && telephone.length() < 10 && telephone.find_first_not_of("0123456789") == std::string::npos;
 	}
 
 	bool operator==(const Person& p) const
@@ -132,8 +141,8 @@ struct Person
 
 	friend std::ostream& operator<<(std::ostream& os, const Person& p)
 	{
-		os << "Name: " << p.firstName << ". Last Name: " << p.otherNames << ". Email: " << p.email << ". Telephone: " << p.telephone;
-		//<< ". Street: " << os << p.address.find("Street")->second << ". Town: " << p.address.find("Town")->second << ". Country: " << p.address.find("Country")->second;
+		os << p.firstName << "*" << p.otherNames << "*" << p.email << "*" << p.telephone << "*" 
+			<< p.address.find("Street")->second << "*" << p.address.find("Town")->second << "*" << p.address.find("Country")->second;
 		return os;
 	}
 };

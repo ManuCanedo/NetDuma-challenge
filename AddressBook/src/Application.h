@@ -11,9 +11,10 @@ enum class QueryType
 	NAME, SURNAME, EMAIL, TELEPHONE, TOWN, COUNTRY
 };
 
+using QueryMap = typename std::unordered_multimap<std::string, Person*>;
+
 class Application
 {
-	using QueryMap = typename std::unordered_multimap<std::string, Person*>;
 
 public:
 	Application()
@@ -24,7 +25,10 @@ public:
 		LoadData();
 	}
 
-	~Application() = default;
+	~Application()
+	{
+		SaveData();
+	}
 
 	void Run()
 	{
@@ -39,11 +43,12 @@ private:
 	void DisplayFind();
 
 	bool Add(const Person& p);
-	bool Remove(QueryType query, const std::string& value);
+	bool Remove(const Person& p);
 	Person* Find(QueryType query, const std::string& value);
 
 private:
-	static bool LoadData();
+	void LoadData();
+	void SaveData();
 
 private:
 	bool bExit{ false };
