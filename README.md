@@ -1,6 +1,6 @@
 # Challenge Solution
 
-In this repo I will be submitting my solution to the coding challenge proposed of the 26th of January.
+In this repo I will be submitting my solution to the coding challenge of the 26th of January.
 
 ## Behaviour
 
