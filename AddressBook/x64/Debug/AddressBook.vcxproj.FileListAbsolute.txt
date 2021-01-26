@@ -1,0 +1,2 @@
+C:\Users\Manu\Desktop\Repos\NetDuma-challenge\AddressBook\x64\Debug\AddressBook.exe
+C:\Users\Manu\Desktop\Repos\NetDuma-challenge\AddressBook\x64\Debug\AddressBook.pdb
